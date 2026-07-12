@@ -1,19 +1,27 @@
-// import { Advice } from './components/Advice';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { EnterTaskPanel } from './components/EnterTaskPanel';
 import { FiltersPanel } from './components/FiltersPanel';
 import { Header } from './components/Header';
 import { Section } from './ui/Section';
 import { Tasks } from './components/Tasks';
-import dayjs from 'dayjs';
+import { SORTERS } from './constants/sorters';
+import type { Sorter } from './constants/task';
+import { TASK_FILTERS } from './constants/filters';
 
 export type Label = 'work' | 'health' | 'personal' | 'other';
+export type Filter = 'all' | 'work' | 'health' | 'personal' | 'completed';
+
 export type Task = {
   id: string;
   title: string;
   label: Label;
   completed: boolean;
   createdAt: string;
+};
+
+export type AddTaskData = {
+  title: string;
+  label: Label;
 };
 const STORAGE_KEY = 'tasks';
 
@@ -23,6 +31,8 @@ function App() {
     if (!saved) return [];
     return JSON.parse(saved);
   });
+  const [currentFilter, setCurrentFilter] = useState<Filter>('all');
+  const [currentSorter, setCurrentSorter] = useState<Sorter>('newest');
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -40,7 +50,7 @@ function App() {
       title,
       label,
       completed: false,
-      createdAt: dayjs(new Date()).format('DD/MM HH:mm'),
+      createdAt: new Date().toISOString(),
     };
 
     setTasks((prev) => [...prev, newTask]);
@@ -59,7 +69,11 @@ function App() {
       ),
     );
   }
-
+  const visibleTasks = useMemo(() => {
+    return [...tasks]
+      .filter(TASK_FILTERS[currentFilter].fn)
+      .sort(SORTERS[currentSorter].fn);
+  }, [tasks, currentFilter, currentSorter]);
   return (
     <>
       <Section>
@@ -74,11 +88,16 @@ function App() {
         <EnterTaskPanel addTask={addTask} />
       </Section>
       <Section>
-        <FiltersPanel />
+        <FiltersPanel
+          currentFilter={currentFilter}
+          setCurrentFilter={setCurrentFilter}
+          currentSorter={currentSorter}
+          setCurrentSorter={setCurrentSorter}
+        />
       </Section>
       <Section>
         <Tasks
-          tasks={tasks}
+          tasks={visibleTasks}
           deleteTask={deleteTask}
           statusToggle={statusToggle}
         />
