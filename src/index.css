@@ -3,22 +3,26 @@
 @theme {
   --color-bg: #060411;
 
-  --color-panel: #0d081e;
-
+  --color-panel: #120c28;
   --color-text: #cac1e6;
 
   --color-task-personal: #a45d1a;
   --color-task-health: #26a41a;
   --color-task-work: #6438c1;
+  --color-task-other: #4e485f;
 
   --color-button: #6438c1;
+  --color-button-del: #a81e3e;
 
   --color-ghost: #504968;
   --color-ghost-secondary: #6b5a91;
+
+  --color-border: #241654;
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: Inter, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
+  /* color: #4e485f;; */
 }
