@@ -1,42 +1,13 @@
-import type { Label, Task } from '../App';
+import type { Task } from '../App';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import DelSvg from '../assets/icons/del-bin-contrast.svg';
-// import { labelStyles } from '../constants/labels';
+import { labelStyles } from '../constants/labels';
 
 type TasksProps = {
   tasks: Task[];
   deleteTask: (id: string) => void;
   statusToggle: (id: string) => void;
-};
-const labelStyles: Record<
-  Label,
-  {
-    border: string;
-    text: string;
-    bg: string;
-  }
-> = {
-  work: {
-    border: 'border-blue-500',
-    text: 'text-blue-500',
-    bg: 'bg-blue-500',
-  },
-  health: {
-    border: 'border-green-500',
-    text: 'text-green-500',
-    bg: 'bg-green-500',
-  },
-  personal: {
-    border: 'border-amber-500',
-    text: 'text-amber-500',
-    bg: 'bg-amber-500',
-  },
-  other: {
-    border: 'border-gray-500',
-    text: 'text-gray-500',
-    bg: 'bg-gray-500',
-  },
 };
 
 export const Tasks = ({ tasks, deleteTask, statusToggle }: TasksProps) => {
@@ -48,7 +19,6 @@ export const Tasks = ({ tasks, deleteTask, statusToggle }: TasksProps) => {
             <li className="flex gap-3 items-center">
               <button
                 onClick={() => {
-                  console.log('Complete status:', task.completed);
                   statusToggle(task.id);
                 }}
                 className={`mt-1 h-5 w-5 rounded-full border-2 hover:cursor-pointer ${labelStyles[task.label].border} ${task.completed ? labelStyles[task.label].bg : ''}`}

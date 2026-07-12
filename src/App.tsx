@@ -6,14 +6,22 @@ import { Header } from './components/Header';
 import { Section } from './ui/Section';
 import { Tasks } from './components/Tasks';
 import dayjs from 'dayjs';
+import { TASK_FILTERS } from './constants/filters';
 
 export type Label = 'work' | 'health' | 'personal' | 'other';
+export type Filter = 'all' | 'work' | 'health' | 'personal' | 'completed';
+
 export type Task = {
   id: string;
   title: string;
   label: Label;
   completed: boolean;
   createdAt: string;
+};
+
+export type AddTaskData = {
+  title: string;
+  label: Label;
 };
 const STORAGE_KEY = 'tasks';
 
@@ -23,17 +31,13 @@ function App() {
     if (!saved) return [];
     return JSON.parse(saved);
   });
+  const [currentFilter, setCurrentFilter] = useState<Filter>('all');
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  type AddTaskProps = {
-    title: string;
-    label: Label;
-  };
-
-  function addTask({ title, label }: AddTaskProps) {
+  function addTask({ title, label }: AddTaskData) {
     if (!title) return;
     const newTask: Task = {
       id: crypto.randomUUID(),
@@ -59,26 +63,27 @@ function App() {
       ),
     );
   }
-
+  const filteredTasks = tasks.filter(TASK_FILTERS[currentFilter].fn);
   return (
     <>
       <Section>
         <Header />
       </Section>
 
-      {/* <Section>
-        <Advice />
-      </Section> */}
-
       <Section>
         <EnterTaskPanel addTask={addTask} />
       </Section>
+
       <Section>
-        <FiltersPanel />
+        <FiltersPanel
+          currentFilter={currentFilter}
+          setCurrentFilter={setCurrentFilter}
+        />
       </Section>
+
       <Section>
         <Tasks
-          tasks={tasks}
+          tasks={filteredTasks}
           deleteTask={deleteTask}
           statusToggle={statusToggle}
         />
