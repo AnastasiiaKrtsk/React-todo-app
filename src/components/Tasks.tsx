@@ -3,6 +3,7 @@ import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import DelSvg from '../assets/icons/del-bin-contrast.svg';
 import { labelStyles } from '../constants/labels';
+import dayjs from 'dayjs';
 
 type TasksProps = {
   tasks: Task[];
@@ -33,7 +34,7 @@ export const Tasks = ({ tasks, deleteTask, statusToggle }: TasksProps) => {
                   </span>
                 </div>
                 <div className="mt-2 flex items-center justify-between text-sm text-gray-400">
-                  <span>{task.createdAt} AM</span>
+                  <span>{dayjs(task.createdAt).format('DD/MM HH:mm')}</span>
                 </div>
               </div>
               <Button

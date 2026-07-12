@@ -1,18 +1,22 @@
 import { Panel } from '../ui/Panel';
 
 import { Button } from '../ui/Button';
+import type { Filter, Sorter } from '../constants/task';
+import { SORTERS } from '../constants/sorters';
 import { TASK_FILTERS } from '../constants/filters';
-
-import type { Filter } from '../App';
 
 type FiltersPanelpProps = {
   currentFilter: Filter;
   setCurrentFilter: (filter: Filter) => void;
+  currentSorter: Sorter;
+  setCurrentSorter: (sorter: Sorter) => void;
 };
 
 export const FiltersPanel = ({
   currentFilter,
   setCurrentFilter,
+  currentSorter,
+  setCurrentSorter,
 }: FiltersPanelpProps) => {
   return (
     <Panel>
@@ -41,12 +45,19 @@ export const FiltersPanel = ({
         </ul>
         <select
           name="sort"
+          value={currentSorter}
+          onChange={(e) => {
+            setCurrentSorter(e.target.value as Sorter);
+          }}
           className="flex items-center bg-panel hover:cursor-pointer hover:bg-ghost rounded p-1"
         >
-          <option value="">Newest</option>
-          <option value="">Oldest</option>
-          <option value="">A-Z</option>
-          <option value="">Z-A</option>
+          {(
+            Object.entries(SORTERS) as [Sorter, (typeof SORTERS)[Sorter]][]
+          ).map(([key, sorter]) => (
+            <option key={key} value={key}>
+              {sorter.label}
+            </option>
+          ))}
         </select>
       </div>
     </Panel>
