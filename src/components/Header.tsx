@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import MenuBtn from '../assets/icons/menu.svg';
+
 export const Header = () => {
   const [now, setNow] = useState(dayjs());
 
@@ -15,12 +15,6 @@ export const Header = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
-        <div className="my-4 md:hidden">
-          <img src={MenuBtn} alt="Menu" width={30} />
-        </div>
-        <h3 className="text-3xl">NEBULA</h3>
-      </div>
       <div className="flex justify-between">
         <div>
           <h2 className="text-3xl">Today</h2>

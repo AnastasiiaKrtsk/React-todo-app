@@ -1,8 +1,11 @@
+// constants/filters.ts
+
 import All from '../assets/icons/all.svg';
 import Work from '../assets/icons/work.svg';
 import Health from '../assets/icons/health.svg';
 import Personal from '../assets/icons/personal.svg';
 import Completed from '../assets/icons/done.svg';
+
 import type { Filter, Task } from '../App';
 
 export const TASK_FILTERS: Record<
