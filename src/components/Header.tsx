@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import Menu from '../assets/icons/menu.svg';
 import { Button } from '../ui/Button';
-export const Header = () => {
+export const Header = ({ onOpen }: { onOpen: () => void }) => {
   const [now, setNow] = useState(dayjs());
 
   useEffect(() => {
@@ -16,8 +16,8 @@ export const Header = () => {
 
   return (
     <>
-      <div className="flex justify-between mb-4">
-        <Button className="px-0 py-0 bg-transparent">
+      <div className="flex justify-between mb-4 md:hidden">
+        <Button onClick={onOpen} className="px-0 py-0 bg-transparent">
           <img className="w-10" src={Menu} alt="" />
         </Button>
         <h2 className="text-2xl">NEBULA</h2>
