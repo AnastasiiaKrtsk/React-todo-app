@@ -1,17 +1,17 @@
-import type { Task } from '../App';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import DelSvg from '../assets/icons/del-bin-contrast.svg';
-import { labelStyles } from '../constants/labels';
+import { labelStyles } from '../utils/labels';
 import dayjs from 'dayjs';
+import type { Task } from '../utils/tasks';
 
 type TasksProps = {
   tasks: Task[];
-  deleteTask: (id: string) => void;
-  statusToggle: (id: string) => void;
+  onStatusToggle: (id: string) => void;
+  onDeleteClick: (task: Task) => void;
 };
 
-export const Tasks = ({ tasks, deleteTask, statusToggle }: TasksProps) => {
+export const Tasks = ({ tasks, onStatusToggle, onDeleteClick }: TasksProps) => {
   return (
     <div className="flex flex-col gap-2">
       {tasks.map((task) => (
@@ -20,7 +20,7 @@ export const Tasks = ({ tasks, deleteTask, statusToggle }: TasksProps) => {
             <li className="flex gap-3 items-center">
               <button
                 onClick={() => {
-                  statusToggle(task.id);
+                  onStatusToggle(task.id);
                 }}
                 className={`mt-1 h-5 w-5 rounded-full border-2 hover:cursor-pointer ${labelStyles[task.label].border} ${task.completed ? labelStyles[task.label].bg : ''}`}
               />
@@ -40,7 +40,7 @@ export const Tasks = ({ tasks, deleteTask, statusToggle }: TasksProps) => {
               <Button
                 className="-mr-2 -my-1 md:-mr-3 lg:-mr-5 py-5 px-4 hover:bg-button-del "
                 onClick={() => {
-                  deleteTask(task.id);
+                  onDeleteClick(task);
                 }}
               >
                 <img src={DelSvg} alt="" width={18} height={18} />

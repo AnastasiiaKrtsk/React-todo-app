@@ -1,6 +1,6 @@
-import type { Sorter, Task } from './task';
+import type { Sorter, Task } from './tasks';
 
-export const SORTERS: Record<
+export const TASK_SORTERS: Record<
   Sorter,
   {
     label: string;

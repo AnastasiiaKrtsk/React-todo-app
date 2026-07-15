@@ -1,4 +1,4 @@
-import type { Label } from '../constants/task';
+import type { Label } from './tasks';
 
 export const labelStyles: Record<
   Label,

@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Panel } from '../ui/Panel';
 import { Button } from '../ui/Button';
 import AddBtn from '../assets/icons/add.svg';
-import type { Label } from '../App';
+import type { Label } from '../utils/tasks';
 
 type EnterTaskPanelProps = {
-  addTask: (task: { title: string; label: Label }) => void;
+  onAddTask: (task: { title: string; label: Label }) => void;
 };
-export const EnterTaskPanel = ({ addTask }: EnterTaskPanelProps) => {
+export const EnterTaskPanel = ({ onAddTask }: EnterTaskPanelProps) => {
   const [value, setValue] = useState('');
   const [label, setLabel] = useState<Label>('other');
 
@@ -43,9 +43,9 @@ export const EnterTaskPanel = ({ addTask }: EnterTaskPanelProps) => {
           </select>
         </div>
         <Button
-          className="py-3 px-5 -mr-2 -my-1"
+          className="py-3 px-5 -mr-2 -my-1 md:-mr-5"
           onClick={() => {
-            addTask({ title: value, label: label });
+            onAddTask({ title: value, label: label });
             setValue('');
             setLabel('other');
           }}
