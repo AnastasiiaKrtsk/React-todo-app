@@ -5,11 +5,14 @@ import { Header } from './components/Header';
 import { Section } from './ui/Section';
 import { Tasks } from './components/Tasks';
 import { TASK_SORTERS } from './utils/sorters';
-import type { AddTaskData, Filter, Label, Sorter, Task } from './utils/tasks';
+import type { AddTaskData, Filter, Sorter, Task } from './utils/tasks';
 import { TASK_FILTERS } from './utils/filters';
 import { getTasksFromStorage, setTasksToStorage } from './utils/storage';
 import { Modal } from './ui/Modal';
 import { DeleteModal } from './components/DeleteModal';
+import { SideBar } from './components/SideBar';
+import Background from './assets/images/bg.jpg';
+import { Footer } from './components/Footer';
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>(() => getTasksFromStorage());
@@ -18,6 +21,7 @@ function App() {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
 
   useEffect(() => {
     setTasksToStorage(tasks);
@@ -71,36 +75,67 @@ function App() {
   return (
     <>
       {isDeleteModalOpen && (
-        <Modal>
+        <Modal className="inset-1">
           <DeleteModal onClose={handleClose} onDelete={handleDelete} />
         </Modal>
       )}
-      <Section>
-        <Header />
-      </Section>
+      {isDropMenuOpen && (
+        <Modal className="inset-0 md:hidden">
+          <SideBar
+            onClose={() => {
+              setIsDropMenuOpen(false);
+            }}
+          />
+        </Modal>
+      )}
 
-      {/* <Section>
-        <Advice />
-      </Section> */}
+      <div
+        className="grid min-h-screen md:grid-cols-[280px_1fr] lg:grid-cols-[360px_1fr]"
+        style={{
+          backgroundImage: `
+          linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)),
+          url(${Background})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <SideBar className="hidden md:block" />
 
-      <Section>
-        <EnterTaskPanel onAddTask={handleAddTask} />
-      </Section>
-      <Section>
-        <FiltersPanel
-          filter={currentFilter}
-          onFilterChange={setCurrentFilter}
-          sorter={currentSorter}
-          onSorterChange={setCurrentSorter}
-        />
-      </Section>
-      <Section>
-        <Tasks
-          tasks={visibleTasks}
-          onStatusToggle={handleStatusToggle}
-          onDeleteClick={handleOpen}
-        />
-      </Section>
+        <div className="flex min-h-screen flex-col">
+          <main className="flex-1">
+            <Section>
+              <Header
+                onOpen={() => {
+                  setIsDropMenuOpen(true);
+                }}
+              />
+            </Section>
+
+            <Section>
+              <EnterTaskPanel onAddTask={handleAddTask} />
+            </Section>
+
+            <Section>
+              <FiltersPanel
+                filter={currentFilter}
+                onFilterChange={setCurrentFilter}
+                sorter={currentSorter}
+                onSorterChange={setCurrentSorter}
+              />
+            </Section>
+
+            <Section>
+              <Tasks
+                tasks={visibleTasks}
+                onStatusToggle={handleStatusToggle}
+                onDeleteClick={handleOpen}
+              />
+            </Section>
+          </main>
+
+          <Footer />
+        </div>
+      </div>
     </>
   );
 }
