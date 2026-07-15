@@ -20,7 +20,7 @@ export const FiltersPanel = ({
   return (
     <Panel>
       <div className="flex items-center">
-        <ul className="flex justify-around w-full items-center">
+        <ul className="flex justify-around gap-3 w-full items-center">
           {(
             Object.entries(TASK_FILTERS) as [
               Filter,
@@ -28,15 +28,19 @@ export const FiltersPanel = ({
             ][]
           ).map(([key, value]) => (
             <li key={key}>
-              <div className="flex gap-1 md:gap-3 rounded ">
+              <div className="flex gap-1 rounded md:gap-3 p-1">
                 <Button
-                  className={`hover:bg-button ${filter === key ? 'bg-button' : 'bg-transparent'}`}
+                  className={`flex gap-2 hover:bg-button ${filter === key ? 'bg-button' : 'bg-transparent'}`}
                   onClick={() => {
                     onFilterChange(key as Filter);
                   }}
                 >
-                  <img src={value.icon} alt={value.name} width={25} />
-                  <p className="hidden md:flex">{value.name}</p>
+                  <img
+                    src={value.icon}
+                    alt={value.name}
+                    className="w-10 md:w-8"
+                  />
+                  <p className="hidden md:hidden lg:block">{value.name}</p>
                 </Button>
               </div>
             </li>

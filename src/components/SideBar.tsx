@@ -12,9 +12,10 @@ import { twMerge } from 'tailwind-merge';
 type SideBarProps = {
   onClose?: () => void;
   className?: string;
+  page: MenuId;
 };
 
-type MenuId =
+export type MenuId =
   | 'home'
   | 'upcoming'
   | 'projects'
@@ -61,7 +62,7 @@ const menuItems: Tag[] = [
   },
 ];
 
-export const SideBar = ({ onClose, className }: SideBarProps) => {
+export const SideBar = ({ onClose, className, page }: SideBarProps) => {
   return (
     <div
       className={twMerge(
@@ -72,7 +73,6 @@ export const SideBar = ({ onClose, className }: SideBarProps) => {
       <Button className="px-0 py-0 bg-transparent md:hidden" onClick={onClose}>
         <img className="w-10" src={MenuIcon} alt="" />
       </Button>
-
       <div className="flex flex-col items-center gap-3 mb-7">
         <div>
           <img src={LogoIcon} alt="logo" />
@@ -82,12 +82,13 @@ export const SideBar = ({ onClose, className }: SideBarProps) => {
           <p className="uppercase">tasks system</p>
         </div>
       </div>
-
-      <div>
+      <div className="mb-15">
         <ul className="flex flex-col gap-6 justify-center">
           {menuItems.map((tag) => (
             <li key={tag.id}>
-              <div className="grid grid-cols-[50px_1fr] items-center gap-5 border border-button px-5 py-3 rounded">
+              <div
+                className={`grid grid-cols-[50px_1fr] items-center gap-5 border ${tag.id === page ? 'border-button' : 'border-none'} px-5 py-3 rounded`}
+              >
                 <img src={tag.icon} alt={tag.id} className="w-14 md:w-8" />
                 <p className="text-3xl uppercase md:text-xl">{tag.id}</p>
               </div>
