@@ -10,7 +10,7 @@ import { TASK_FILTERS } from './utils/filters';
 import { getTasksFromStorage, setTasksToStorage } from './utils/storage';
 import { Modal } from './ui/Modal';
 import { DeleteModal } from './components/DeleteModal';
-import { SideBar } from './components/SideBar';
+import { SideBar, type MenuId } from './components/SideBar';
 import Background from './assets/images/bg.jpg';
 import { Footer } from './components/Footer';
 
@@ -22,6 +22,8 @@ function App() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
+
+  const [currentPage] = useState<MenuId>('home');
 
   useEffect(() => {
     setTasksToStorage(tasks);
@@ -73,7 +75,7 @@ function App() {
   }, [tasks, currentFilter, currentSorter]);
 
   return (
-    <>
+    <div>
       {isDeleteModalOpen && (
         <Modal className="inset-1">
           <DeleteModal onClose={handleClose} onDelete={handleDelete} />
@@ -85,6 +87,7 @@ function App() {
             onClose={() => {
               setIsDropMenuOpen(false);
             }}
+            page={currentPage}
           />
         </Modal>
       )}
@@ -99,7 +102,7 @@ function App() {
           backgroundPosition: 'center',
         }}
       >
-        <SideBar className="hidden md:block" />
+        <SideBar className="hidden md:block" page={currentPage} />
 
         <div className="flex min-h-screen flex-col">
           <main className="flex-1">
@@ -136,7 +139,7 @@ function App() {
           <Footer />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

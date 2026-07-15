@@ -1,77 +1,132 @@
-# React + TypeScript + Vite
+📝 Todo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Todo application built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**.
 
-Currently, two official plugins are available:
+The main goal of this project was to strengthen my React knowledge by building a responsive multi-page application with reusable components, custom UI, routing, modals, theme switching, and local data persistence.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🎨 Design
 
-## React Compiler
+The entire interface was designed from scratch by me.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+🎨 **Behance Design:** _(Add your Behance link here)_
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+🚀 Live Demo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Website:** _(Add deployment link)_
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Repository:** _(Add GitHub repository link)_
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+📸 Preview
+![Home](/src/screenshots/scr-mob.png)
+![Home](/src/screenshots/scr-desk.png)
 
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+✨ Features
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Task Management
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- ✅ Create tasks
+- ✅ Edit tasks
+- ✅ Delete tasks
+- ✅ Mark tasks as completed
+- ✅ Store tasks in Local Storage
 
-```
+Navigation
+
+- Multi-page application using React Router
+- Client-side routing
+
+User Interface
+
+- Custom UI designed from scratch
+- Responsive layout
+- Light / Dark theme switching
+- Reusable UI components
+- Modal windows
+- Icons from React Icons
+- Clean and modern interface
+
+---
+
+🛠 Tech Stack
+
+Core
+
+- React 19
+- TypeScript
+- Vite
+
+Styling
+
+- Tailwind CSS v4
+
+Libraries
+
+- React Router
+- React Icons
+- Day.js
+
+---
+
+📚 What I Practiced
+
+Throughout this project I practiced:
+
+- React fundamentals
+- Functional components
+- Component composition
+- Props
+- State management
+- React Hooks
+- Event handling
+- Controlled forms
+- Conditional rendering
+- Rendering lists
+- Multi-page applications with React Router
+- Modal implementation
+- Theme switching
+- Local Storage
+- Responsive design
+- TypeScript
+- Building reusable UI components
+- Creating a custom interface from my own design
+
+---
+
+📦 Dependencies
+
+- React
+- React DOM
+- React Router
+- Tailwind CSS
+- Day.js
+- React Icons
+- tailwind-merge
+- tailwind-scrollbar-hide
+
+---
+
+📱 Responsive Design
+
+Optimized for:
+
+- Desktop
+- Tablet
+- Mobile
+
+---
+
+🎯 Purpose
+
+This project was created as part of my React learning journey. The focus was on writing clean, reusable components, improving TypeScript skills, building responsive layouts, implementing client-side routing, working with modals, and creating a polished user experience from a custom design.
+
+---
+
+📄 License
+
+This project is intended for learning and portfolio purposes.
