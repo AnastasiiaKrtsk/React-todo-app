@@ -1,7 +1,5 @@
-import type { ReactNode } from 'react';
-
 type SectionProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
 };
 export const Section = ({ children, className }: SectionProps) => {

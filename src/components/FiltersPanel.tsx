@@ -1,22 +1,21 @@
 import { Panel } from '../ui/Panel';
-
 import { Button } from '../ui/Button';
-import type { Filter, Sorter } from '../constants/task';
-import { SORTERS } from '../constants/sorters';
-import { TASK_FILTERS } from '../constants/filters';
+import type { Filter, Sorter } from '../utils/tasks';
+import { TASK_SORTERS } from '../utils/sorters';
+import { TASK_FILTERS } from '../utils/filters';
 
 type FiltersPanelpProps = {
-  currentFilter: Filter;
-  setCurrentFilter: (filter: Filter) => void;
-  currentSorter: Sorter;
-  setCurrentSorter: (sorter: Sorter) => void;
+  filter: Filter;
+  onFilterChange: (filter: Filter) => void;
+  sorter: Sorter;
+  onSorterChange: (sorter: Sorter) => void;
 };
 
 export const FiltersPanel = ({
-  currentFilter,
-  setCurrentFilter,
-  currentSorter,
-  setCurrentSorter,
+  filter,
+  onFilterChange,
+  sorter,
+  onSorterChange,
 }: FiltersPanelpProps) => {
   return (
     <Panel>
@@ -31,9 +30,9 @@ export const FiltersPanel = ({
             <li key={key}>
               <div className="flex gap-1 md:gap-3 rounded ">
                 <Button
-                  className={`p-5 hover:bg-button ${currentFilter === key ? 'bg-button' : 'bg-transparent'}`}
+                  className={`hover:bg-button ${filter === key ? 'bg-button' : 'bg-transparent'}`}
                   onClick={() => {
-                    setCurrentFilter(key as Filter);
+                    onFilterChange(key as Filter);
                   }}
                 >
                   <img src={value.icon} alt={value.name} width={25} />
@@ -43,16 +42,20 @@ export const FiltersPanel = ({
             </li>
           ))}
         </ul>
+
         <select
           name="sort"
-          value={currentSorter}
-          onChange={(e) => {
-            setCurrentSorter(e.target.value as Sorter);
-          }}
+          value={sorter}
           className="flex items-center bg-panel hover:cursor-pointer hover:bg-ghost rounded p-1"
+          onChange={(e) => {
+            onSorterChange(e.target.value as Sorter);
+          }}
         >
           {(
-            Object.entries(SORTERS) as [Sorter, (typeof SORTERS)[Sorter]][]
+            Object.entries(TASK_SORTERS) as [
+              Sorter,
+              (typeof TASK_SORTERS)[Sorter],
+            ][]
           ).map(([key, sorter]) => (
             <option key={key} value={key}>
               {sorter.label}

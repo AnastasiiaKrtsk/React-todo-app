@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-
+import Menu from '../assets/icons/menu.svg';
+import { Button } from '../ui/Button';
 export const Header = () => {
   const [now, setNow] = useState(dayjs());
 
@@ -15,6 +16,12 @@ export const Header = () => {
 
   return (
     <>
+      <div className="flex justify-between mb-4">
+        <Button className="px-0 py-0 bg-transparent">
+          <img className="w-10" src={Menu} alt="" />
+        </Button>
+        <h2 className="text-2xl">NEBULA</h2>
+      </div>
       <div className="flex justify-between">
         <div>
           <h2 className="text-3xl">Today</h2>
@@ -28,4 +35,3 @@ export const Header = () => {
     </>
   );
 };
-// so i need to use state so date could rerender ??? right? because i need time to change

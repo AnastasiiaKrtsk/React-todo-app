@@ -1,16 +1,19 @@
-import type { ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type ButtonProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
   onClick?: () => void;
 };
 export const Button = ({ children, className, onClick }: ButtonProps) => {
   return (
     <button
-      type="button"
-      className={`bg-button text-text px-2 py-1 rounded hover:cursor-pointer ${className}`}
       onClick={onClick}
+      type="button"
+      className={twMerge(
+        'bg-button text-text px-2 py-1 rounded hover:cursor-pointer',
+        className,
+      )}
     >
       {children}
     </button>
