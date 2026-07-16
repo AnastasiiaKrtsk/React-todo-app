@@ -11,8 +11,6 @@ The entire interface was designed from scratch by me.
 ## 🎨 **Behance Project:** [Nebula Task System](https://www.behance.net/gallery/252878061/Nebula%28task-system%29)
 
 📸 Preview
-![Home](/src/screenshots/mob-mockup.png)
-![Home](/src/screenshots/desk-mockup.png)
 
 ---
 
