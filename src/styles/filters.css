@@ -1,0 +1,55 @@
+.filters {
+  background-color: #0d081e;
+  padding: 14px 10px;
+  margin: 14px auto 0;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  border-radius: 7px;
+}
+.filters button {
+  display: flex;
+  padding: 20px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  background-color: transparent;
+}
+.filters button span {
+  display: inline;
+}
+.filters button:hover {
+  cursor: pointer;
+}
+.filters button:focus {
+  background: var(--primary-hover);
+}
+.filters button.active {
+  background: var(--primary-hover);
+}
+@media (max-width: 768px) {
+  .filters button span {
+    display: none;
+  }
+}
+#sort-select {
+  padding: 10px 40px 10px 20px;
+
+  background-color: #0d081e;
+  border: 1px solid #1a0f40;
+  border-radius: 4px;
+  color: var(--text);
+
+  font-size: var(--text-sm);
+  outline: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url('/assets/select-arrow.svg');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 10px;
+}

@@ -1,12 +1,12 @@
 import { Button } from '../ui/Button';
 import MenuIcon from '../assets/icons/menu.svg';
 import LogoIcon from '../assets/images/logo.svg';
-import HomeIcon from '../assets/icons/home.svg';
-import UpcomingIcon from '../assets/icons/upcomming.svg';
-import ProjectsIcon from '../assets/icons/projects.svg';
-import CalendarIcon from '../assets/icons/calendar.svg';
-import StatsIcon from '../assets/icons/stats.svg';
-import SettingsIcon from '../assets/icons/settings.svg';
+import HomeIcon from '../assets/icons/home-indigo.svg';
+import UpcomingIcon from '../assets/icons/upcomming-indigo.svg';
+import ProjectsIcon from '../assets/icons/projects-indigo.svg';
+import CalendarIcon from '../assets/icons/calendar-indigo.svg';
+import StatsIcon from '../assets/icons/stats-indigo.svg';
+import SettingsIcon from '../assets/icons/settings-indigo.svg';
 import { twMerge } from 'tailwind-merge';
 
 type SideBarProps = {
@@ -16,7 +16,7 @@ type SideBarProps = {
 };
 
 export type MenuId =
-  | 'home'
+  | 'today'
   | 'upcoming'
   | 'projects'
   | 'calendar'
@@ -31,7 +31,7 @@ type Tag = {
 
 const menuItems: Tag[] = [
   {
-    id: 'home',
+    id: 'today',
     icon: HomeIcon,
     path: '/',
   },
@@ -66,31 +66,35 @@ export const SideBar = ({ onClose, className, page }: SideBarProps) => {
   return (
     <div
       className={twMerge(
-        'overflow-y-auto scrollbar-hide w-full h-full bg-panel p-4 md:max-w-lg',
+        'overflow-y-auto md:overflow-y-hidden scrollbar-hide w-full h-full bg-panel p-4 md:max-w-fit',
         className,
       )}
     >
       <Button className="px-0 py-0 bg-transparent md:hidden" onClick={onClose}>
-        <img className="w-10" src={MenuIcon} alt="" />
+        <img className="w-8" src={MenuIcon} alt="" />
       </Button>
+
       <div className="flex flex-col items-center gap-3 mb-7">
         <div>
           <img src={LogoIcon} alt="logo" />
         </div>
         <div className="text-center">
-          <h2 className="uppercase">nebula</h2>
+          <h2 className="uppercase text-2xl text-indigo-500">nebula</h2>
           <p className="uppercase">tasks system</p>
         </div>
       </div>
       <div className="mb-15">
-        <ul className="flex flex-col gap-6 justify-center">
+        <ul className="flex flex-col gap-6 justify-center md:ml-4">
           {menuItems.map((tag) => (
             <li key={tag.id}>
               <div
-                className={`grid grid-cols-[50px_1fr] items-center gap-5 border ${tag.id === page ? 'border-button' : 'border-none'} px-5 py-3 rounded`}
+                className={`flex justify-center items-center md:justify-start gap-5 border px-5 py-3 md:px-15 
+                md:rounded-l-2xl md:rounded-r-none md:-mr-4 md:border-r-0
+                ${tag.id === page ? 'border-indigo-400/25' : 'border-none'} 
+                ${tag.id === page ? 'bg-indigo-500/3' : 'bg-transparent'}`}
               >
-                <img src={tag.icon} alt={tag.id} className="w-14 md:w-8" />
-                <p className="text-3xl uppercase md:text-xl">{tag.id}</p>
+                <img src={tag.icon} alt={tag.id} className="w-10 md:w-6" />
+                <p className="text uppercase md:text-base">{tag.id}</p>
               </div>
             </li>
           ))}

@@ -18,7 +18,7 @@ export const Header = ({ onOpen }: { onOpen: () => void }) => {
     <>
       <div className="flex justify-between mb-4 md:hidden">
         <Button onClick={onOpen} className="px-0 py-0 bg-transparent">
-          <img className="w-10" src={Menu} alt="" />
+          <img className="w-8" src={Menu} alt="" />
         </Button>
         <h2 className="text-2xl">NEBULA</h2>
       </div>

@@ -8,21 +8,11 @@ The main goal of this project was to strengthen my React knowledge by building a
 
 The entire interface was designed from scratch by me.
 
-🎨 **Behance Design:** _(Add your Behance link here)_
-
----
-
-🚀 Live Demo
-
-**Website:** _(Add deployment link)_
-
-**Repository:** _(Add GitHub repository link)_
-
----
+## 🎨 **Behance Project:** [Nebula Task System](https://www.behance.net/gallery/252878061/Nebula%28task-system%29)
 
 📸 Preview
-![Home](/src/screenshots/scr-mob.png)
-![Home](/src/screenshots/scr-desk.png)
+![Home](/src/screenshots/mob-mockup.png)
+![Home](/src/screenshots/desk-mockup.png)
 
 ---
 

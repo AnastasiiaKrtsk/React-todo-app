@@ -23,7 +23,9 @@ function App() {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isDropMenuOpen, setIsDropMenuOpen] = useState(false);
 
-  const [currentPage] = useState<MenuId>('home');
+  const [currentPage] = useState<MenuId>('today');
+
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
     setTasksToStorage(tasks);
@@ -48,7 +50,21 @@ function App() {
       ),
     );
   }
+  //******************
+  function updateTask(id: string, title: string) {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === id ? { ...task, title } : task)),
+    );
+  }
 
+  function startEditing(id: string) {
+    setEditingId(id);
+  }
+
+  function stopEditing() {
+    setEditingId(null);
+  }
+  //****************** */
   function deleteTask(id: string) {
     if (!id) return;
     setTasks((prev) => prev.filter((task) => task.id !== id));
@@ -93,7 +109,7 @@ function App() {
       )}
 
       <div
-        className="grid min-h-screen md:grid-cols-[280px_1fr] lg:grid-cols-[360px_1fr]"
+        className="grid min-h-screen md:grid-cols-[280px_1fr] lg:grid-cols-[360px_fr]"
         style={{
           backgroundImage: `
           linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)),
@@ -104,7 +120,7 @@ function App() {
       >
         <SideBar className="hidden md:block" page={currentPage} />
 
-        <div className="flex min-h-screen flex-col">
+        <div className="flex min-h-screen flex-col ">
           <main className="flex-1">
             <Section>
               <Header
@@ -132,6 +148,10 @@ function App() {
                 tasks={visibleTasks}
                 onStatusToggle={handleStatusToggle}
                 onDeleteClick={handleOpen}
+                startEditing={startEditing}
+                stopEditing={stopEditing}
+                editingId={editingId}
+                updateTask={updateTask}
               />
             </Section>
           </main>

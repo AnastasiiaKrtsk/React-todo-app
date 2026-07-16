@@ -12,10 +12,10 @@ export const EnterTaskPanel = ({ onAddTask }: EnterTaskPanelProps) => {
   const [label, setLabel] = useState<Label>('other');
 
   return (
-    <Panel>
-      <div className="flex">
+    <Panel className="px-4 py-2 lg:px-3 lg:py-2">
+      <div className="flex justify-center items-center">
         <input
-          className="w-full focus:outline-0"
+          className="w-full focus:outline-0 text-lg"
           value={value}
           onChange={(e) => {
             const newValue = e.target.value;
@@ -29,7 +29,7 @@ export const EnterTaskPanel = ({ onAddTask }: EnterTaskPanelProps) => {
         />
         <div className="mr-3 ml-3">
           <select
-            className="bg-panel hover:cursor-pointer hover:bg-ghost rounded p-1"
+            className="flex py-2 px-2  items-center focus:bg-indigo-950 hover:cursor-pointer hover:bg-ghost rounded  border border-violet-400/50 focus:border-violet-400/50 focus:outlone-0 bg-violet-600/10"
             name="label"
             value={label}
             onChange={(e) => {
@@ -43,14 +43,14 @@ export const EnterTaskPanel = ({ onAddTask }: EnterTaskPanelProps) => {
           </select>
         </div>
         <Button
-          className="py-3 px-5 -mr-2 -my-1 md:-mr-5"
+          className="py-3 px-6 md:py-3 md:px-6 lg:py-3"
           onClick={() => {
             onAddTask({ title: value, label: label });
             setValue('');
             setLabel('other');
           }}
         >
-          <img src={AddBtn} alt="addBtn" />
+          <img src={AddBtn} alt="addBtn" className="w-5 md:w-7 lg:w-5" />
         </Button>
       </div>
     </Panel>
