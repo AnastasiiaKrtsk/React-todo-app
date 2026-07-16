@@ -25,6 +25,8 @@ function App() {
 
   const [currentPage] = useState<MenuId>('home');
 
+  const [editingId, setEditingId] = useState<string | null>(null);
+
   useEffect(() => {
     setTasksToStorage(tasks);
   }, [tasks]);
@@ -48,7 +50,21 @@ function App() {
       ),
     );
   }
+  //******************
+  function updateTask(id: string, title: string) {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === id ? { ...task, title } : task)),
+    );
+  }
 
+  function startEditing(id: string) {
+    setEditingId(id);
+  }
+
+  function stopEditing() {
+    setEditingId(null);
+  }
+  //****************** */
   function deleteTask(id: string) {
     if (!id) return;
     setTasks((prev) => prev.filter((task) => task.id !== id));
@@ -132,6 +148,10 @@ function App() {
                 tasks={visibleTasks}
                 onStatusToggle={handleStatusToggle}
                 onDeleteClick={handleOpen}
+                startEditing={startEditing}
+                stopEditing={stopEditing}
+                editingId={editingId}
+                updateTask={updateTask}
               />
             </Section>
           </main>

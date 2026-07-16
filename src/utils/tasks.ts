@@ -13,3 +13,10 @@ export type AddTaskData = {
   title: string;
   label: Label;
 };
+export type TaskItemProps = {
+  className?: string;
+  task: Task;
+  onStatusToggle: (id: string) => void;
+  onDeleteClick: (task: Task) => void;
+  onEditClick: (task: Task) => void;
+};

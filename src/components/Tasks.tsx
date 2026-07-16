@@ -1,52 +1,46 @@
-import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
-import DelSvg from '../assets/icons/del-bin-contrast.svg';
-import { labelStyles } from '../utils/labels';
-import dayjs from 'dayjs';
 import type { Task } from '../utils/tasks';
+import { TaskCardMobile } from './TaskCardMobile';
+import { TaskRowDesktop } from './TaskRowDesktop';
 
 type TasksProps = {
   tasks: Task[];
   onStatusToggle: (id: string) => void;
   onDeleteClick: (task: Task) => void;
+  startEditing: (id: string) => void;
+  stopEditing: () => void;
+  editingId: string | null;
+  updateTask: (id: string, title: string) => void;
 };
 
-export const Tasks = ({ tasks, onStatusToggle, onDeleteClick }: TasksProps) => {
+export const Tasks = ({
+  tasks,
+  onStatusToggle,
+  onDeleteClick,
+  startEditing,
+  stopEditing,
+  editingId,
+  updateTask,
+}: TasksProps) => {
   return (
     <div className="flex flex-col gap-2">
       {tasks.map((task) => (
-        <Panel key={task.id}>
-          <ul className="list-none">
-            <li className="flex gap-3 items-center">
-              <button
-                onClick={() => {
-                  onStatusToggle(task.id);
-                }}
-                className={`mt-1 h-5 w-5 rounded-full border-2 hover:cursor-pointer ${labelStyles[task.label].border} ${task.completed ? labelStyles[task.label].bg : ''}`}
-              />
-              <div className="flex-1">
-                <div className="flex items-start gap-2">
-                  <h3 className="truncate font-medium">{task.title}</h3>
-                  <span
-                    className={`rounded border px-2 py-0.5 text-xs uppercase ${labelStyles[task.label].border} ${labelStyles[task.label].text}`}
-                  >
-                    {task.label}
-                  </span>
-                </div>
-                <div className="mt-2 flex items-center justify-between text-sm text-gray-400">
-                  <span>{dayjs(task.createdAt).format('DD/MM HH:mm')}</span>
-                </div>
-              </div>
-              <Button
-                className="-mr-2 -my-1 md:-mr-3 lg:-mr-5 py-5 px-4 hover:bg-button-del "
-                onClick={() => {
-                  onDeleteClick(task);
-                }}
-              >
-                <img src={DelSvg} alt="" width={18} height={18} />
-              </Button>
-            </li>
-          </ul>
+        <Panel key={task.id} className="px-4">
+          <TaskCardMobile
+            task={task}
+            onStatusToggle={onStatusToggle}
+            onDeleteClick={onDeleteClick}
+            startEditing={startEditing}
+            stopEditing={stopEditing}
+            editingId={editingId}
+            updateTask={updateTask}
+          />
+
+          <TaskRowDesktop
+            task={task}
+            onStatusToggle={onStatusToggle}
+            onDeleteClick={onDeleteClick}
+          />
         </Panel>
       ))}
     </div>
