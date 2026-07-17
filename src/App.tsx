@@ -27,6 +27,8 @@ function App() {
 
   const [editingId, setEditingId] = useState<string | null>(null);
 
+  const [editingId, setEditingId] = useState<string | null>(null);
+
   useEffect(() => {
     setTasksToStorage(tasks);
   }, [tasks]);
