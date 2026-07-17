@@ -38,7 +38,7 @@ export const TASK_FILTERS: Record<
   },
 
   completed: {
-    name: 'Completed',
+    name: 'Done',
     icon: Completed,
     fn: (task) => task.completed,
   },

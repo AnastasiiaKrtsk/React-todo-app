@@ -18,31 +18,31 @@ export const FiltersPanel = ({
   onSorterChange,
 }: FiltersPanelpProps) => {
   return (
-    <Panel>
-      <div className="flex items-center">
-        <ul className="flex justify-around gap-3 w-full items-center">
+    <Panel className="lg:px-3 py-3">
+      <div className="flex items-center gap-5">
+        <ul className="grid grid-flow-col auto-cols-fr gap-1 md:gap-5 lg:gap-10 w-full items-center">
           {(
             Object.entries(TASK_FILTERS) as [
               Filter,
               (typeof TASK_FILTERS)[Filter],
             ][]
           ).map(([key, value]) => (
-            <li key={key}>
-              <div className="flex gap-1 rounded md:gap-3 p-1">
-                <Button
-                  className={`flex gap-2 hover:bg-button ${filter === key ? 'bg-button' : 'bg-transparent'}`}
-                  onClick={() => {
-                    onFilterChange(key as Filter);
-                  }}
-                >
-                  <img
-                    src={value.icon}
-                    alt={value.name}
-                    className="w-10 md:w-8"
-                  />
-                  <p className="hidden md:hidden lg:block">{value.name}</p>
-                </Button>
-              </div>
+            <li key={key} className="w-full">
+              <Button
+                className={`px-0 py-0 flex items-center justify-center w-full h-12 gap-2 hover:bg-button ${
+                  filter === key ? 'bg-button' : 'bg-transparent'
+                }`}
+                onClick={() => {
+                  onFilterChange(key as Filter);
+                }}
+              >
+                <img
+                  src={value.icon}
+                  alt={value.name}
+                  className="w-7 h-7 object-contain shrink-0 md:w-6 md:h-6"
+                />
+                <p className="hidden lg:block ">{value.name}</p>
+              </Button>
             </li>
           ))}
         </ul>
@@ -50,7 +50,7 @@ export const FiltersPanel = ({
         <select
           name="sort"
           value={sorter}
-          className="flex items-center bg-panel hover:cursor-pointer hover:bg-ghost rounded p-1"
+          className="flex p-2 items-center focus:bg-indigo-950 hover:cursor-pointer hover:bg-ghost rounded  border border-violet-400/50 focus:border-violet-400/50 focus:outlone-0 bg-violet-600/10"
           onChange={(e) => {
             onSorterChange(e.target.value as Sorter);
           }}
