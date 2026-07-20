@@ -1,4 +1,3 @@
-import { Button } from '../ui/Button';
 import MenuIcon from '../assets/icons/menu.svg';
 import LogoIcon from '../assets/images/logo.svg';
 import HomeIcon from '../assets/icons/home-indigo.svg';
@@ -8,6 +7,7 @@ import CalendarIcon from '../assets/icons/calendar-indigo.svg';
 import StatsIcon from '../assets/icons/stats-indigo.svg';
 import SettingsIcon from '../assets/icons/settings-indigo.svg';
 import { twMerge } from 'tailwind-merge';
+import { Button } from '../ui/Button';
 
 type SideBarProps = {
   onClose?: () => void;
@@ -66,7 +66,7 @@ export const SideBar = ({ onClose, className, page }: SideBarProps) => {
   return (
     <div
       className={twMerge(
-        'overflow-y-auto md:overflow-y-hidden scrollbar-hide w-full h-full bg-panel p-4 md:max-w-fit',
+        'flex flex-col scrollbar-hide w-full h-full bg-panel p-4 overflow-y-auto md:overflow-y-hidden md:w-full lg:w-full ',
         className,
       )}
     >
@@ -74,7 +74,7 @@ export const SideBar = ({ onClose, className, page }: SideBarProps) => {
         <img className="w-8" src={MenuIcon} alt="" />
       </Button>
 
-      <div className="flex flex-col items-center gap-3 mb-7">
+      <div className="flex flex-col items-center gap-3 mb-7 mt-5">
         <div>
           <img src={LogoIcon} alt="logo" />
         </div>
@@ -84,12 +84,11 @@ export const SideBar = ({ onClose, className, page }: SideBarProps) => {
         </div>
       </div>
       <div className="mb-15">
-        <ul className="flex flex-col gap-6 justify-center md:ml-4">
+        <ul className="flex flex-col gap-5 justify-center md:ml-4">
           {menuItems.map((tag) => (
             <li key={tag.id}>
               <div
-                className={`flex justify-center items-center md:justify-start gap-5 border px-5 py-3 md:px-15 
-                md:rounded-l-2xl md:rounded-r-none md:-mr-4 md:border-r-0
+                className={`flex justify-center items-center md:justify-start gap-5 border px-5 py-3 md:px-10 md:rounded-l-2xl md:rounded-r-none md:-mr-4 md:border-r-0
                 ${tag.id === page ? 'border-indigo-400/25' : 'border-none'} 
                 ${tag.id === page ? 'bg-indigo-500/3' : 'bg-transparent'}`}
               >

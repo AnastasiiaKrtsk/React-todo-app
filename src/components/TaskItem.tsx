@@ -1,77 +1,37 @@
+import { Button } from '../ui/Button';
+import { useState } from 'react';
+import { toggleTask, updateTask } from '../redux/tasksSlice';
+import { useAppDispatch } from '../redux/tasksHooks';
 import { Panel } from '../ui/Panel';
 import dayjs from 'dayjs';
-import { Button } from '../ui/Button';
 import DelSvg from '../assets/icons/del-bin-contrast.svg';
 import EditIcon from '../assets/icons/edit.svg';
 import { labelStyles, statusStyles } from '../utils/labels';
 import type { Task } from '../utils/tasks';
-import { useState } from 'react';
 
-type TasksProps = {
-  tasks: Task[];
-  onStatusToggle: (id: string) => void;
-  onDeleteClick: (task: Task) => void;
-  startEditing: (id: string) => void;
-  stopEditing: () => void;
-  editingId: string | null;
-  updateTask: (id: string, title: string) => void;
-};
-
-// 1. MAIN LIST CONTAINER
-export const Tasks = ({
-  tasks,
-  onStatusToggle,
-  onDeleteClick,
-  startEditing,
-  stopEditing,
-  editingId,
-  updateTask,
-}: TasksProps) => {
-  return (
-    <div className="flex flex-col gap-2">
-      {tasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          isEditing={editingId === task.id}
-          onStatusToggle={onStatusToggle}
-          onDeleteClick={onDeleteClick}
-          startEditing={startEditing}
-          stopEditing={stopEditing}
-          updateTask={updateTask}
-        />
-      ))}
-    </div>
-  );
-};
-
-// 2. INDIVIDUAL TASK ITEM COMPONENT
 type TaskItemProps = {
   task: Task;
   isEditing: boolean;
-  onStatusToggle: (id: string) => void;
   onDeleteClick: (task: Task) => void;
   startEditing: (id: string) => void;
   stopEditing: () => void;
-  updateTask: (id: string, title: string) => void;
 };
 
-const TaskItem = ({
+export const TaskItem = ({
   task,
   isEditing,
-  onStatusToggle,
   onDeleteClick,
   startEditing,
   stopEditing,
-  updateTask,
 }: TaskItemProps) => {
   const [value, setValue] = useState(task.title);
-
+  const dispatch = useAppDispatch();
+  const formattedTime = dayjs(task.createdAt).format('hh:mm A');
   return (
     <Panel className="p-2 lg:p-4">
       <div className="grid grid-cols-[32px_1fr_100px_32px] items-center gap-4 w-full">
         <button
-          onClick={() => onStatusToggle(task.id)}
+          onClick={() => dispatch(toggleTask(task.id))}
           className={`h-7 w-7 rounded-full border-2 shrink-0 transition-colors ${statusStyles[task.label].border} ${task.completed ? statusStyles[task.label].bg : ''}`}
         />
 
@@ -98,7 +58,12 @@ const TaskItem = ({
                   className="px-3 py-1 text-sm bg-indigo-600 hover:bg-indigo-500"
                   onClick={() => {
                     if (value.trim().length === 0) return;
-                    updateTask(task.id, value);
+                    dispatch(
+                      updateTask({
+                        id: task.id,
+                        title: value,
+                      }),
+                    );
                     stopEditing();
                   }}
                 >
@@ -119,9 +84,12 @@ const TaskItem = ({
                 <img src={EditIcon} alt="Edit" width={18} />
               </button>
             )}
+            <span className="hidden md:flex text-xs md:text-base lg:text-base text-gray-400 ml-1">
+              {formattedTime}
+            </span>
           </div>
-          <span className="text-xs md:text-base lg:text-base text-gray-400 ml-1">
-            {dayjs(task.createdAt).format('hh:mm A')}
+          <span className="md:hidden text-xs md:text-base lg:text-base text-gray-400 ml-1">
+            {formattedTime}
           </span>
         </div>
 
