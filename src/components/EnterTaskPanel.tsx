@@ -3,24 +3,24 @@ import { Panel } from '../ui/Panel';
 import { Button } from '../ui/Button';
 import AddBtn from '../assets/icons/add.svg';
 import type { Label } from '../utils/tasks';
+import { useAppDispatch } from '../redux/tasksHooks';
+import { addTask } from '../redux/tasksSlice';
 
-type EnterTaskPanelProps = {
-  onAddTask: (task: { title: string; label: Label }) => void;
-};
-export const EnterTaskPanel = ({ onAddTask }: EnterTaskPanelProps) => {
-  const [value, setValue] = useState('');
+export const EnterTaskPanel = () => {
+  const [title, setTitle] = useState('');
   const [label, setLabel] = useState<Label>('other');
+  const dispatch = useAppDispatch();
 
   return (
     <Panel className="px-4 py-2 lg:px-3 lg:py-2">
       <div className="flex justify-center items-center">
         <input
           className="w-full focus:outline-0 text-lg"
-          value={value}
+          value={title}
           onChange={(e) => {
             const newValue = e.target.value;
             if (newValue === '' || !newValue.startsWith(' ')) {
-              setValue(newValue);
+              setTitle(newValue);
             }
           }}
           required
@@ -45,8 +45,10 @@ export const EnterTaskPanel = ({ onAddTask }: EnterTaskPanelProps) => {
         <Button
           className="py-3 px-6 md:py-3 md:px-6 lg:py-3"
           onClick={() => {
-            onAddTask({ title: value, label: label });
-            setValue('');
+            // onAddTask({ title: value, label: label });
+            dispatch(addTask({ title, label }));
+
+            setTitle('');
             setLabel('other');
           }}
         >

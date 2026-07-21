@@ -3,20 +3,15 @@ import { Button } from '../ui/Button';
 import type { Filter, Sorter } from '../utils/tasks';
 import { TASK_SORTERS } from '../utils/sorters';
 import { TASK_FILTERS } from '../utils/filters';
+import { useAppDispatch, useAppSelector } from '../redux/tasksHooks';
+import { setFilter, setSorter } from '../redux/tasksSlice';
+import { selectFilter, selectSorter } from '../redux/tasksSelectors';
 
-type FiltersPanelpProps = {
-  filter: Filter;
-  onFilterChange: (filter: Filter) => void;
-  sorter: Sorter;
-  onSorterChange: (sorter: Sorter) => void;
-};
+export const FiltersPanel = () => {
+  const dispatch = useAppDispatch();
+  const filter = useAppSelector(selectFilter);
+  const sorter = useAppSelector(selectSorter);
 
-export const FiltersPanel = ({
-  filter,
-  onFilterChange,
-  sorter,
-  onSorterChange,
-}: FiltersPanelpProps) => {
   return (
     <Panel className="lg:px-3 py-3">
       <div className="flex items-center gap-5">
@@ -33,7 +28,7 @@ export const FiltersPanel = ({
                   filter === key ? 'bg-button' : 'bg-transparent'
                 }`}
                 onClick={() => {
-                  onFilterChange(key as Filter);
+                  dispatch(setFilter(key));
                 }}
               >
                 <img
@@ -52,7 +47,8 @@ export const FiltersPanel = ({
           value={sorter}
           className="flex p-2 items-center focus:bg-indigo-950 hover:cursor-pointer hover:bg-ghost rounded  border border-violet-400/50 focus:border-violet-400/50 focus:outlone-0 bg-violet-600/10"
           onChange={(e) => {
-            onSorterChange(e.target.value as Sorter);
+            const value = e.target.value;
+            dispatch(setSorter(value as Sorter));
           }}
         >
           {(
